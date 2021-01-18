@@ -1,0 +1,84 @@
+<%- include("../partials/header") %>
+<div class="container emp-profile">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="profile-head">
+                            <h5>
+                                <%= user.firstname%> <%=user.lastname%>
+                            </h5>
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>User Id</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%= user.username%></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>First Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%= user.firstname%> </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>last Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p> <%=user.lastname%></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%= user.firstname%> <%=user.lastname%></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%= user.email%></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>followers</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%= user.followers.length%></p>
+                                    </div>
+                                </div>
+            </div>
+            <div class="col-md-6">
+        <ul>
+            <h4><%= user.firstname + "" + user.lastname %> entertainments :</h4>
+                <ul>
+                    <% entertainment.forEach(function(entertainment) {%>
+                    <li>
+                        <a href="/entertainment/<%=entertainment._id %>"><%= entertainment.name%>
+                        </a>
+                    </li>
+                  <% })%>  
+                </ul> 
+            </ul> 
+            </div>
+              
+</div>
+<%- include("../partials/footer") %>
