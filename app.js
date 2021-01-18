@@ -14,7 +14,7 @@ var express         =require("express"),
     User            = require("./models/user"),
     http            = require("http").createServer(app),
     io              = require("socket.io")(http),
-    seedDB          = require("./seeds")
+    // seedDB          = require("./seeds")
 
 require('dotenv').config();
 
