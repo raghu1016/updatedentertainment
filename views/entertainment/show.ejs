@@ -53,8 +53,19 @@
              </div>
          </form>
          <% } %>
+         <% if(currentUser && entertainment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+          <% } else { %>
+           <button type="button" class="btn btn-info float-right" data-toggle="modal"
+           data-target="#entertainmentRating">Rate
+           </button>
+          <% } %> 
           <h4 class="card-title" ><a><%= entertainment.name %></a></h4>
           <h5 class="card-title">Genre:<%= entertainment.category %></h5> 
+          <% if(entertainment.rating.length>0) { %>
+            <div class="float-right">
+            <h5>average ratings:<%= averagerate %>/5</h5>
+            </div>
+           <% } %>
         <p>
           <em>submitted by:<a href="/users/<%= entertainment.author.id %>"><%= entertainment.author.firstname + entertainment.author.lastname %></a>,<%= moment(entertainment.createdAt).fromNow()%></em>
         </p> 
@@ -175,7 +186,40 @@
       </div>
   </div>
 </div>
-
+<div id="entertainmentRating" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <h4 class="modal-title text-center">Entertainment rating</h4>
+          <div class="modal-body">
+            <form action="/entertainment/<%=entertainment._id%>/rating" method="POST" class="mb-3 p-3 validated-form text-center" novalidate>
+              <label class="form-label" for="rate">Rating:</label>
+              <fieldset class="starability-basic " style="margin:auto;">
+                  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                      aria-label="No rating." />
+                  <input type="radio" id="first-rate1" name="rating value="1" />
+                  <label for="first-rate1" title="Terrible">1 star</label>
+                  <input type="radio" id="first-rate2" name="rating" value="2" />
+                  <label for="first-rate2" title="Not good">2 stars</label>
+                  <input type="radio" id="first-rate3" name="rating" value="3" />
+                  <label for="first-rate3" title="Average">3 stars</label>
+                  <input type="radio" id="first-rate4" name="rating" value="4" />
+                  <label for="first-rate4" title="Very good">4 stars</label>
+                  <input type="radio" id="first-rate5" name="rating" value="5" />
+                  <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+              <input type="submit" name="Submit"/>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 <%- include("../partials/footer") %> 
 
 <script>

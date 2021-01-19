@@ -77,7 +77,7 @@ User.register(newUser,req.body.password,function (err,user) {
                 to: req.body.email,
                 from: process.env.GMAILID, // Use the email address or domain you verified above
                 subject: 'Entertainment email address verfication',
-                html: `<p>You are receiving this because to verify your account.</p><p>Please click on the following button to activate:</p><div style="text-align: center"><a href=${'http://' + req.headers.host + '/register/' + token} style="background-color: #007bff;border: none;color: white;padding: 10px 20px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;cursor: pointer;">Activate</a></div>`,
+                html: `<p>You are receiving this because to verify your account.</p><p>Please click on the following button to activate:</p><div style="text-align: center"><a href=${'http://' + req.headers.host + '/register/' + token} style="background-color: #007bff;border: none;color: white;padding: 10px 20px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;cursor: pointer;">Activate</a></div>`
               };
               smtpTransport.sendMail(msg, (err)=>{
                 done(err, 'done');
@@ -191,21 +191,16 @@ router.post('/forgot', function(req, res, next) {
           pass: process.env.GMAILPW
         }
     })
-      // },function(err){
-      //   return next(err);
-      // });
       var mailOptions = {
         to: user.email,
         from: process.env.GMAILID,
-        subject: 'Node.js Password Reset',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+        subject: 'Entertainment Password Reset',
+        html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p><p>Please click on the following button to reset the password:</p><div style="text-align: center"><a href=${'http://' + req.headers.host + '/reset/' + token} style="background-color: #007bff;border: none;color: white;padding: 10px 20px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;cursor: pointer;">Reset password</a></div>
+        <p>If you did not request this, please ignore this email and your password will remain unchanged</p>`
+        
+
       };
       smtpTransport.sendMail(mailOptions, function(err) {
-        console.log('mail sent');
-        // console.log(err);
         req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(err, 'done');
       });
@@ -269,7 +264,7 @@ router.post('/reset/:token', function(req, res) {
       });
       var mailOptions = {
         to: user.email,
-        from: process.env.GMAILID,
+        from:process.env.GMAILID,
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'

@@ -147,17 +147,6 @@ body {
 #delete-comment{
 	display:inline;
 }
-/*//////////////////////////*/
-
- /*.navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
-    background-color: #222222;
-    color:#222222;
-  }*/
-
- /*.navbar.navbar-expand-lg .navbar-nav .open .dropdown-menu>li>a,.navbar.navbar-expand-lg.navbar-nav .open .dropdown-menu {
-    background-color: #222222;
-    color:#222222;
-  }*/
 
   #scroll {
     max-height: 500px;
@@ -171,4 +160,34 @@ audio {
 
 .fa-heart{
   color: red;
+}
+
+.carousel {
+  background:#512DA8;
+}
+
+.carousel-item {
+height: 300px;
+}
+
+.carousel-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 300px;
+}
+
+.jumbotron{
+  margin:auto;
+  background-image: url(https://res.cloudinary.com/dibljzlwi/image/upload/v1611063742/chirag-tripathy-waterrfall-concept-01-original_cotrjq.jpg) ;
+  background-size: cover; 
+  min-height: 600px;
+}
+
+#zoom {
+  transition: transform .2s; /* Animation */
+}
+
+#zoom:hover {
+  transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }

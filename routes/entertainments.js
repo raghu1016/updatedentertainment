@@ -212,24 +212,34 @@ function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
-// router.post('/:id/rating', async (req, res)=>{
-// 	const entertainment = await Entertainment.findById(req.params.id);
-// 	const rating = new Rating(req.body);
-// 	rating.active = true;
-//     rating.author = {id: req.user._id};
-// 	entertainment.rating.push(rating);
-// 	if(rating.active == true){
-// 		req.flash('error', 'Cannot rate more than once');
-//     	res.redirect(`/entertainment/${entertainment._id}`);
-// 	}
-// 	else {
-//     await rating.save();
-//     await entertainment.save();
-//     req.flash('success', 'Created new rating!');
-// 	res.redirect(`/entertainment/${entertainment._id}`);
-// 	}
-	
-// })
+router.post('/:id/rating', async (req, res)=>{
+	const entertainment = await Entertainment.findById(req.params.id).populate({
+        path: 'rating',
+        populate: {
+            path: 'author'
+        }
+	}).populate('author');
+	var ratedArray = [];
+    for(var i=0;i<entertainment.rating.length;i++){
+      ratedArray.push(String(entertainment.rating[i].author.id))
+	}
+    if (ratedArray.includes(String(req.user._id))) {
+      req.flash(
+        "error",
+        "You've already reviewed this entertainment"
+      );
+      res.redirect(`/entertainment/${entertainment._id}`);
+    }
+	else {
+		const rating = new Rating(req.body);
+		rating.author = {id: req.user._id};
+		entertainment.rating.push(rating);
+		await rating.save();
+		await entertainment.save();
+		req.flash('success', 'Created new rating!');
+		res.redirect(`/entertainment/${entertainment._id}`);
+	}	
+})
 
 router.post("/:id/likes",(req, res)=>{
 	Entertainment.findById(req.params.id, function (err, entertainment) {

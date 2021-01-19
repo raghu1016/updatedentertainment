@@ -1,13 +1,13 @@
 <%- include("../partials/header") %>
 <div class="container ">
-  <h1> music list</h1>
+  <h1> musics list</h1>
     <div class="row text-center">
         <% if(entertainment.length>0) { %>
         <% entertainment.forEach(function(entertainments)
         { %>
 
           <div class="col-lg-3 col-md-4 col-sm-6 mb-4">             
-              <div class="card" >
+              <div class="card" id="zoom" >
                 <% if(entertainments.files[0].url.split('.').pop() == 'png' || entertainments.files[0].url.split('.').pop() == 'jpg' || entertainments.files[0].url.split('.').pop() == 'jpeg') { %>
                   <img src="<%= entertainments.files[0].url %>" class="card-img-top" alt="<%= entertainments.name %>">
                   <% } else if(entertainments.files[1].url.split('.').pop() == 'png' || entertainments.files[1].url.split('.').pop() == 'jpg'  || entertainments.files[1].url.split('.').pop() == 'jpeg') { %>
