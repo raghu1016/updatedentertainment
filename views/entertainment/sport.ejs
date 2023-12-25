@@ -1,0 +1,36 @@
+<%- include("../partials/header") %>
+<div class="container ">
+  <h1> sports list</h1>
+    <div class="row text-center">
+        <% if(entertainment.length>0) { %>
+        <% entertainment.forEach(function(entertainments)
+        { %>
+
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">             
+              <div class="card" id="zoom">
+                <% if(entertainments.files[0].url.split('.').pop() == 'png' || entertainments.files[0].url.split('.').pop() == 'jpg' || entertainments.files[0].url.split('.').pop() == 'jpeg') { %>
+                  <img src="<%= entertainments.files[0].url %>" class="card-img-top" alt="<%= entertainments.name %>">
+                  <% } else if(entertainments.files[1].url.split('.').pop() == 'png' || entertainments.files[1].url.split('.').pop() == 'jpg'  || entertainments.files[1].url.split('.').pop() == 'jpeg') { %>
+                    <img src="<%= entertainments.files[1].url %>" class="card-img-top" alt="<%= entertainments.name %>">
+                    <% }else { %>
+                      <img src="https://res.cloudinary.com/dibljzlwi/image/upload/v1610794742/Entertainment/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953_oipjkl.jpg" class="card-img-top" alt="No image">
+                   <% } %>
+                <div class="card-body">
+                  <h5 class="card-title"><%= entertainments.name %></h5>
+                  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                  <a href="/entertainment/<%= entertainments._id %>" class="btn btn-primary">more info
+                  <i class="fa fa-angle-double-right"></i></a>
+                </div>
+              </div>
+          </div> 
+        <% }); %>
+        <% } else { %>
+            <div style="margin:auto">
+               <h1> sports not found</h1>
+            </div>    
+            <% } %> 
+    </div>
+    <div class="d-flex justify-content-center"><a style="text-align: center;" href="/">go back</a>
+    </div>
+</div>
+<%- include("../partials/footer") %>
